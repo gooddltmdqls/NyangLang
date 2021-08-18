@@ -53,6 +53,6 @@ NyangLang
 
 여기서 소개한 모든 명령어는 혼합할 수 있다냥!
 
-냥 냐앙 VarName 냥 Value 냥냥 냥냐앙 Varname
+냥 냐앙 VarName 냥 Value 냥냥 냥냐앙 VarName
 
 이렇게 하면 "Value"가 출력될 거다냥!

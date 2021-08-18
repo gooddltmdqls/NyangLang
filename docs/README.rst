@@ -15,7 +15,16 @@ NyangLang
 
 냥 냐앙 VarName 냥 Value
 
+
 이름이 같으면 덮어씌워지니까 잘 이용해봐라냥~!
+
+그리고 이런것도 있다냥!
+
+냥 냐아앙 VarName 냥 NewVarName
+
+대충 감이 왔겠지만 변수 이름 재설정이다냥!
+
+변수 이름을 잘못 지었을 때 사용해봐라냥!
 
 다음은 콘솔 출력이다냥!
 
@@ -44,6 +53,6 @@ NyangLang
 
 여기서 소개한 모든 명령어는 혼합할 수 있다냥!
 
-냥 냐앙 VarName 냥 Value 냥냥 냥냐앙 Varname
+냥 냐앙 VarName 냥 Value 냥냥 냥냐앙 VarName
 
 이렇게 하면 "Value"가 출력될 거다냥!
