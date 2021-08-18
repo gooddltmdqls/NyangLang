@@ -13,8 +13,7 @@ NyangLang
 변수 선언
 '''''''''''''
 
-.. code::
-   냥 냐앙 VarName 냥 Value
+냥 냐앙 VarName 냥 Value
 
 이름이 같으면 덮어씌워지니까 잘 이용해봐라냥~!
 
@@ -25,13 +24,11 @@ NyangLang
 
 미안하지만 귀찮아서 아직은 띄어쓰기를 지원하지 않는다냥!
 
-.. code::
-   냥냥 말하고싶은거적어라냥
+냥냥 말하고싶은거적어라냥
 
 변수를 불러와 쓸 수도 있다냥!
 
-.. code::
-   냥냥 냥냐앙 VarName
+냥냥 냥냐앙 VarName
 
 선언된 변수 확인
 '''''''''''''
@@ -47,7 +44,6 @@ NyangLang
 
 여기서 소개한 모든 명령어는 혼합할 수 있다냥!
 
-.. code::
-   냥 냐앙 VarName 냥 Value 냥냥 냥냐앙 Varname
+냥 냐앙 VarName 냥 Value 냥냥 냥냐앙 Varname
 
 이렇게 하면 "Value"가 출력될 거다냥!
