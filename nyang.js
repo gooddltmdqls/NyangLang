@@ -17,9 +17,10 @@ function nyang() {
         var position = -1;
         var act = undefined;
         var writehere;
+        var renamehere;
         for (command of msg.split(" ")) {
             position++
-            if (command === "냥" && act != "var" && act != "varvalue" && act != "varname" && act != "consolelog" && act != "consolelogVariable") act = "var";
+            if (command === "냥" && act != "var" && act != "varvalue" && act != "varname" && act != "consolelog" && act != "consolelogVariable" && act != "renamevar" && act != "renamevarUnConfirm" && act != "renamevarConfirm") act = "var";
             else if (command === "냐앙" && act === "var") act = "varname";
             else if (command === "냥" && act === "var") act = "varvalue";
             else if (act === "varname") {
@@ -37,6 +38,7 @@ function nyang() {
                         name: command,
                         value: null
                     });
+                    writehere = variables.length - 1;
                 }
                 act = "var";
             } else if (command === "냐냥냥") {
@@ -48,7 +50,7 @@ function nyang() {
                 process.stdin.write(nyanyangnyang);
             } else if (act === "varvalue") {
                 if (writehere) variables[writehere].value = command;
-                else variables[variables.length - 1].value = command;
+                else console.log("에러: 어떤 변수에 값을 설정해야 할지 모르겠다냥!");
                 act = undefined;
             } else if (command === "냥냥" && act == undefined) act = "consolelog";
             else if (command === "냥냐앙" && act === "consolelog") act = "consolelogVariable";
@@ -65,6 +67,26 @@ function nyang() {
                 }
                 if (!IHaveThis) console.log("에러: \"" + command + "\"같은 변수는 없다냥!");
                 act = undefined;
+            } else if (act === "var" && command === "냐아앙") act = "renamevar";
+            else if (act === "renamevar") {
+                var iHaveThis = false;
+                var index = -1;
+                for (variable of variables) {
+                    index++;
+                    if (variable.name === command) {
+                        iHaveThis = true;
+                        renamehere = index;
+                        act = "renamevarUnConfirm";
+                    }
+                }
+                if (!iHaveThis) {
+                    console.log("에러: \"" + command + "\"같은 변수는 없다냥!");
+                    act = undefined;
+                }
+            } else if (act === "renamevarUnConfirm" && command === "냥") act = "renamevarConfirm";
+            else if (act === "renamevarConfirm") {
+                variables[renamehere].name = command;
+                act = undefined;
             } else console.log("에러: \"" + command + "\"같은 건 없다냥!");
         }
         nyang();
@@ -76,5 +98,5 @@ rl.on('close', () => {
     process.exit(0);
 });
 
-console.log("반갑다냥! \n명령어 가이드는 \"냥냥 냥냐앙 help\"를 입력하면 알려주겠다냥!");
+console.log("반갑다냥! \n명령어 가이드는 \"http://nyanglang.readthedocs.io\"에서 알려주겠다냥!");
 nyang();
