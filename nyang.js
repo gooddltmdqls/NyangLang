@@ -34,9 +34,7 @@ function nyang() {
                         name: command,
                         value: null
                     });
-                    console.log(variables);
                     writehere = variables.length - 1;
-                    console.log(writehere);
                 } else writehere = findex;
                 act = "var";
             } else if (command === "냐냥냥") {
@@ -48,7 +46,6 @@ function nyang() {
                 process.stdin.write(nyanyangnyang);
             } else if (act === "varvalue") {
                 writehere = writehere ?? "none!";
-                console.log(writehere);
                 if (writehere != "none!") variables[writehere].value = command;
                 else console.log("에러: 어떤 변수에 값을 설정해야 할지 모르겠다냥!");
                 act = undefined;
