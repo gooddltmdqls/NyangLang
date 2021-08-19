@@ -1,17 +1,8 @@
-const readline = require('readline');
-const fs = require("fs");
-const RunNyangFile = require('./NyangFileHandler/RunNyang.js');
-
-const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-var variables = [];
-
-function nyang() {
-    rl.question("> ", msg => {
-        var position = -1;
+const fs = require('fs');
+const RunNyang = function(msg) {
+    var variables = [];
+    var position = -1;
+    try {
         var act = undefined;
         var writehere;
         var renamehere;
@@ -92,20 +83,15 @@ function nyang() {
                 else {
                     if (!command.endsWith(".nyang")) console.log("에러: 파일 확장자가 .nyang이 아닌 것은 취급하지 않는다냥!");
                     else {
-                        RunNyangFile(fs.readFileSync(command, 'utf-8'))
+                        RunNyang(fs.readFileSync(command, 'utf-8'))
                     }
                 }
                 act = undefined;
             } else console.log("에러: \"" + command + "\"같은 건 없다냥!");
         }
-        nyang();
-    });
+    } catch(err) {
+        console.log("뭔가 잘못됐다냥");
+    }
 }
 
-rl.on('close', () => {
-    console.log("\n어디가냐~앙?");
-    process.exit(0);
-});
-
-console.log("반갑다냥! \n명령어 가이드는 \"http://nyanglang.readthedocs.io\"에서 알려주겠다냥!");
-nyang();
+module.exports = RunNyang;
