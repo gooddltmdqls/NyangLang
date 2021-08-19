@@ -5,12 +5,7 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 
-var variables = [
-  {
-      name: "help",
-      value: "냥냥어 가이드다냥! \n냥 = 변수 선언이다냥! \n냥 냐앙 (변수이름냥) 냥 (값) \n\n냐냥냥 = 선언된 변수를 모두 보여준다냥! \n\n냥냥 = 콘솔에 글자를 띄워준다냥! \n냥냥 (글자) \n아니면.. \n냥냥 냥냐앙 (변수이름냥) \n어렵다구~? 거짓말이지이~?" 
-  }
-];
+var variables = [];
 
 function nyang() {
     rl.question("> ", msg => {
@@ -26,11 +21,12 @@ function nyang() {
             else if (act === "varname") {
                 var iHaveThis = false;
                 var index = -1;
+                var findex;
                 for (variable of variables) {
                     index++;
                     if (variable.name === command) {
                         iHaveThis = true;
-                        writehere = index;
+                        findex = index;
                     }
                 }
                 if (!iHaveThis) {
@@ -38,8 +34,10 @@ function nyang() {
                         name: command,
                         value: null
                     });
+                    console.log(variables);
                     writehere = variables.length - 1;
-                }
+                    console.log(writehere);
+                } else writehere = findex;
                 act = "var";
             } else if (command === "냐냥냥") {
                 var nyanyangnyang = "";
@@ -49,7 +47,9 @@ function nyang() {
                 }
                 process.stdin.write(nyanyangnyang);
             } else if (act === "varvalue") {
-                if (writehere) variables[writehere].value = command;
+                writehere = writehere ?? "none!";
+                console.log(writehere);
+                if (writehere != "none!") variables[writehere].value = command;
                 else console.log("에러: 어떤 변수에 값을 설정해야 할지 모르겠다냥!");
                 act = undefined;
             } else if (command === "냥냥" && act == undefined) act = "consolelog";
