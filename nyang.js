@@ -9,6 +9,11 @@ const rl = readline.createInterface({
 
 var variables = [];
 
+if (process.env.NYANG_STARTUP) {
+    RunNyangFile(process.env.NYANG_STARTUP.replace(/_/g, " "));
+    process.exit(0);
+}
+
 function nyang() {
     rl.question("> ", msg => {
         var position = -1;

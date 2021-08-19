@@ -4,7 +4,8 @@
   "description": "",
   "main": "nyang.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "nyangstartup_win": "set NYANG_STARTUP=냥냥_냥?&&node ."
   },
   "keywords": [],
   "author": "",

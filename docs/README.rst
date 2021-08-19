@@ -67,3 +67,19 @@ nyang 파일 읽기
 냥 냐앙 VarName 냥 Value 냥냥 냥냐앙 VarName
 
 이렇게 하면 "Value"가 출력될 거다냥!
+
+--------------------
+NYANG_STARTUP
+--------------------
+
+터미널을 이용해서 실행할 때!
+
+뭔가 바로 커맨드를 실행하고 끝내고 싶지 않냥?
+
+그래서 준비했다냥!
+
+리눅스는 NYANG_STARTUP=커맨드 node .
+
+윈도우는 set NYANG_STARTUP=커맨드&&node .
+
+간단하니까 한 번 해 봐~
