@@ -1,6 +1,7 @@
 const readline = require('readline');
 const fs = require("fs");
-const RunNyangFile = require('./NyangFileHandler/RunNyang.js');
+const DataHandler = require('./DataTypeHandler/DataTypeHandler.js');
+const RunNyang = require('./NyangFileHandler/RunNyang.js');
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -10,7 +11,7 @@ const rl = readline.createInterface({
 var variables = [];
 
 if (process.env.NYANG_STARTUP) {
-    RunNyangFile(process.env.NYANG_STARTUP.replace(/_/g, " "));
+    RunNyang(process.env.NYANG_STARTUP.replace(/_/g, " "));
     process.exit(0);
 }
 
@@ -52,21 +53,45 @@ function nyang() {
                 }
                 process.stdin.write(nyanyangnyang);
             } else if (act === "varvalue") {
+                var string;
+                if (command.startsWith('"')) {
+                    string = DataHandler.parseString(msg.split(' '), position);
+                    if (!DataHandler.isString(string)) string = null;
+                } else if (DataHandler.isBoolean(command)) {
+                    if (command === "true") string = true;
+                    else if (command = "false") string = false;
+                } else if (DataHandler.isInt(command)) string = command - 0;
+                else string = null;
                 writehere = writehere ?? "none!";
-                if (writehere != "none!") variables[writehere].value = command;
+                if (string == null) console.log("에러: 자료형이 뭔가 잘못됐다냥!");
+                else if (writehere != "none!") variables[writehere].value = string;
                 else console.log("에러: 어떤 변수에 값을 설정해야 할지 모르겠다냥!");
-                act = undefined;
+                if (command.startsWith('"') && !command.endsWith('"')) act = "string";
+                else act = undefined;
             } else if (command === "냥냥" && act == undefined) act = "consolelog";
             else if (command === "냥냐앙" && act === "consolelog") act = "consolelogVariable";
             else if (act === "consolelog") {
-                console.log(command);
-                act = undefined;
+                var string;
+                if (command.startsWith('"')) {
+                    string = DataHandler.parseString(msg.split(' '), position);
+                    if (!DataHandler.isString(string)) string = "에러: 자료형이 뭔가 잘못됐다냥!";
+                    else string = string.substring(1, string.length - 1);
+                } else if (DataHandler.isBoolean(command)) {
+                    if (command === "true") string = true;
+                    else if (command = "false") string = false;
+                } else if (DataHandler.isInt(command)) string = command - 0;
+                else string = "에러: 자료형이 뭔가 잘못됐다냥!";
+                console.log(string);
+                if (command.startsWith('"') && !command.endsWith('"')) act = "string";
+                else act = undefined;
             } else if (act === "consolelogVariable") {
                 var IHaveThis = false;
                 for (variable of variables) {
                     if (variable.name === command) {
                         IHaveThis = true;
-                        console.log(variable.value);
+                        if (DataHandler.isString(variable.value)) string = variable.value.substring(1, variable.value.length - 1);
+                        else string = variable.value;
+                        console.log(string);
                     }
                 }
                 if (!IHaveThis) console.log("에러: \"" + command + "\"같은 변수는 없다냥!");
@@ -97,10 +122,12 @@ function nyang() {
                 else {
                     if (!command.endsWith(".nyang")) console.log("에러: 파일 확장자가 .nyang이 아닌 것은 취급하지 않는다냥!");
                     else {
-                        RunNyangFile(fs.readFileSync(command, 'utf-8'))
+                        RunNyang(fs.readFileSync(command, 'utf-8'))
                     }
                 }
                 act = undefined;
+            } else if (act === "string") {
+                if (command.endsWith('"')) act = undefined;
             } else console.log("에러: \"" + command + "\"같은 건 없다냥!");
         }
         nyang();
