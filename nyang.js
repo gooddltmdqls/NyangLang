@@ -114,7 +114,12 @@ function nyang() {
                 }
             } else if (act === "renamevarUnConfirm" && command === "냥") act = "renamevarConfirm";
             else if (act === "renamevarConfirm") {
-                variables[renamehere].name = command;
+                var iHaveThis = false;
+                for (variable of variables) {
+                    if (variable.name === command) iHaveThis = true;
+                }
+                if (iHaveThis) console.log("에러: \"" + command + "\"는 이미 존재한다냥!");
+                else variables[renamehere].name = command;
                 act = undefined;
             } else if (act == undefined && command === "냥냐앙") act = "readnyangfile";
             else if (act === "readnyangfile") {
@@ -139,5 +144,5 @@ rl.on('close', () => {
     process.exit(0);
 });
 
-console.log("반갑다냥! \n명령어 가이드는 \"http://nyanglang.readthedocs.io\"에서 알려주겠다냥!");
+console.log("반갑다냥! \n명령어 가이드는 깃헙을 참고해라냥!");
 nyang();
